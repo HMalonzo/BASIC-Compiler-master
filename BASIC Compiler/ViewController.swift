@@ -29,7 +29,33 @@ class ViewController: UIViewController {
         
     }
     
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        saveFile = fileView.text
+        return true
+    }
     
+    @IBAction func Execute(sender: UIButton) {
+        enum Token
+        {
+            case Define
+            case Identifier(String)
+            case Number(Float)
+            case ParensOpen
+            case ParensClose
+            case Comma
+            case Other(String)
+        }
+        typealias TokenGenerator = (String) -> Token?
+        let tokenList: [(String, TokenGenerator)] = [
+            ("[ \t\n]", { _ in nil }),
+            ("[a-zA-Z][a-zA-Z0-9]*", { $0 == "def" ? .Define : .Identifier($0) }),
+            ("[0-9.]+", { (r: String) in .Number((r as NSString).floatValue) }),
+            ("(", { _ in .ParensOpen }),
+            (")", { _ in .ParensClose }),
+            (",", { _ in .Comma }),
+            ]
+        
+    }
     
     
     //when the text value changes

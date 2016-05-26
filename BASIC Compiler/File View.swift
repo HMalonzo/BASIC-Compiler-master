@@ -27,16 +27,15 @@ class SaveFileListView: UITableView {
         super.init(coder: aDecoder)
     }
     
-    override func numberOfRowsInSection (section: Int) -> Int {
+    override func numberOfRowsInSection(section: Int) -> Int {
         return Programs.count
     }
     
-    override func cellForRowAtIndexPath (indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = dequeueReusableCellWithIdentifier("SaveFile", forIndexPath: indexPath)
+    override func cellForRowAtIndexPath(indexPath: NSIndexPath) -> UITableViewCell? {
+        let cell = self.dequeueReusableCellWithIdentifier("SaveFile", forIndexPath: indexPath)
         let item = Programs[indexPath.row]
         
         configureTextForCell(cell, withSaveFile: item)
-        
         return cell
     }
     
@@ -53,6 +52,7 @@ class SaveFileListView: UITableView {
         let label2 = cell.viewWithTag(500) as! UILabel
         label.text = item.name
         label2.text = "Last edited \(item.date)"
+        print(label.text)
     }
     
     @IBAction func tapToAdd(sender: UIBarButtonItem) {
